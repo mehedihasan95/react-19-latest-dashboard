@@ -1,0 +1,74 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+import { themePresets } from "../utilities/theme";
+
+export type ThemeStateType = {
+  mode: "dark" | "light";
+  fontFamily?: string;
+  fontSize?: number;
+  colorPrimary?: string;
+  colorSecondary?: string;
+
+  name: string;
+  siderBg: string;
+  headerBg: string;
+  itemBg: string;
+  subMenuItemBg: string;
+  itemHoverBg: string;
+};
+
+const initialState: ThemeStateType = {
+  ...themePresets[0],
+  mode: "light",
+  fontFamily: "Roboto, sans-serif",
+  fontSize: 14,
+};
+
+const themeSlice = createSlice({
+  name: "theme",
+  initialState,
+  reducers: {
+    toggleTheme: (state, { payload }: PayloadAction<ThemeStateType>) => {
+      return { ...state, ...payload };
+    },
+
+    themeCustomize: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        type: "PRIMARY_COLOR" | "FONT_SIZE" | "FONT_FAMILY";
+        value: string | number;
+      }>
+    ) => {
+      switch (payload.type) {
+        case "PRIMARY_COLOR":
+          if (typeof payload.value === "string") {
+            state.colorPrimary = payload.value;
+          }
+          break;
+
+        case "FONT_SIZE":
+          if (typeof payload.value === "number") {
+            state.fontSize = payload.value;
+          }
+          break;
+
+        case "FONT_FAMILY":
+          if (typeof payload.value === "string") {
+            state.fontFamily = payload.value;
+          }
+          break;
+
+        default:
+          return state;
+      }
+    },
+  },
+});
+
+export const ThemeState = (state: RootState) => state.theme;
+
+export const { toggleTheme, themeCustomize } = themeSlice.actions;
+
+export const themeReducer = themeSlice.reducer;
