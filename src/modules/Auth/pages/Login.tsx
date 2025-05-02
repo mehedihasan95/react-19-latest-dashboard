@@ -1,23 +1,54 @@
 import { Checkbox, Flex, Form, FormProps } from "antd";
+import { sanitizeData } from "nhb-toolbox";
 import React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { clearMessage, setMessage } from "../../../app/slice/authSlice";
+import { useAppDispatch } from "../../../app/utilities/hooks";
+import Iconify from "../../../configuration/IconifyConfig";
 import {
   FormItemInputUi,
   FormItemPasswordUi,
 } from "../../../ui/Form/FormItems";
-import { LoginTypes } from "../types/authTypes";
-import Iconify from "../../../configuration/IconifyConfig";
+import FormSubmit from "../../../ui/Form/FormSubmit";
 import {
   emailValidator,
   passwordValidator,
 } from "../../../utilities/validator";
-import FormSubmit from "../../../ui/Form/FormSubmit";
-import { Link } from "react-router-dom";
+import { useLoginMutation } from "../api/authEndpoint";
+import { AuthError, LoginTypes } from "../types/authTypes";
 
 const Login: React.FC = () => {
+  const [login, { isLoading }] = useLoginMutation();
   const [form] = Form.useForm();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const onFinish: FormProps<LoginTypes>["onFinish"] = (values) => {
-    console.log(values);
+  const from: string = state?.from?.pathname || "/";
+
+  const onFinish: FormProps<LoginTypes>["onFinish"] = async (values) => {
+    try {
+      const data = sanitizeData(values, {
+        trimStrings: true,
+        keysToIgnore: ["remember"],
+      });
+      const { success } = await login(data).unwrap();
+      if (success) {
+        navigate(from, { replace: true });
+        dispatch(clearMessage());
+      }
+    } catch (error) {
+      const { status, data } = error as AuthError;
+      if (status === "FETCH_ERROR") {
+        dispatch(
+          setMessage(
+            "Due to maintenance, our server is presently unavailable. Please try again later."
+          )
+        );
+      } else {
+        dispatch(setMessage(data.message));
+      }
+    }
   };
 
   return (
@@ -57,7 +88,7 @@ const Login: React.FC = () => {
         <Link to="/auth/send-otp">Forgot Password!</Link>
       </Flex>
       <FormSubmit
-        // loading={isLoading}
+        loading={isLoading}
         name="Login"
         block
         icon="ant-design:login-outlined"

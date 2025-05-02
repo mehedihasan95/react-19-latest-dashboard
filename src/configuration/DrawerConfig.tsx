@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Drawer } from "antd";
-import { useAppDispatch, useAppSelector } from "../app/store";
 import { closeDrawer, DrawerState } from "../app/slice/drawerSlice";
+import { useAppDispatch, useAppSelector } from "../app/utilities/hooks";
 
 const DrawerConfig: React.FC = () => {
   const { open, title, content, extra, footer, placement, size, width } =

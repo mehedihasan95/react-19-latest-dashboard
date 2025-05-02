@@ -21,11 +21,7 @@ const authSlice = createSlice({
       state.success = payload.success;
       state.token = payload.token;
     },
-    clearAuth: (state) => {
-      state.success = false;
-      state.token = undefined;
-      state.message = undefined;
-    },
+    clearAuth: () => initialState,
     setMessage: (state, { payload }: PayloadAction<string>) => {
       state.message = payload;
     },

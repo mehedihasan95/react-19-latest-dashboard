@@ -3,7 +3,7 @@ import { RootState } from "../store";
 
 export type DrawerTypes =
   | {
-      title: string | undefined;
+      title?: string | undefined;
       content: React.ReactNode | undefined;
       extra?: React.ReactNode;
       footer?: React.ReactNode;
@@ -30,21 +30,12 @@ const drawerSlice = createSlice({
   name: "drawer",
   initialState,
   reducers: {
-    showDrawer: (state, { payload }: PayloadAction<DrawerTypes>) => {
-      state.open = true;
-      state.title = payload?.title;
-      state.content = payload?.content;
-      state.extra = payload?.extra;
-      state.footer = payload?.footer;
-      state.placement = payload?.placement;
-      state.size = payload?.size;
-      state.width = payload?.width;
-    },
-    closeDrawer: (state) => {
-      state.open = false;
-      state.title = undefined;
-      state.content = undefined;
-    },
+    showDrawer: (state, { payload }: PayloadAction<DrawerTypes>) => ({
+      ...state,
+      ...payload,
+      open: true,
+    }),
+    closeDrawer: () => initialState,
   },
 });
 

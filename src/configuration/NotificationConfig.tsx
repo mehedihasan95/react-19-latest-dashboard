@@ -1,10 +1,10 @@
 import { notification } from "antd";
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../app/store";
 import {
   clearNotification,
   NotificationState,
 } from "../app/slice/notificationSlice";
+import { useAppDispatch, useAppSelector } from "../app/utilities/hooks";
 
 const NotificationConfig: React.FC = () => {
   const { type, description, placement } = useAppSelector(NotificationState);

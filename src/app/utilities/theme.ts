@@ -5,24 +5,25 @@ export const themePresets: ThemeStateType[] = [
     mode: "light",
     name: "Default",
     headerBg: "#FFFFFF",
-    siderBg: "#004225",
-    itemBg: "#004225",
-    colorPrimary: "#667BC6",
-    colorSecondary: "#0C134F",
-    subMenuItemBg: "rgb(0, 0, 0, 0.5)",
-    itemHoverBg: "rgb(0, 0, 0, 0.5)",
+    siderBg: "#210F37",
+    itemBg: "#210F37",
+    colorPrimary: "#328E6E",
+    colorSecondary: "#705C53",
+    colorText: "#f2f2f2",
+    subMenuItemBg: "rgba(0, 0, 0, 0.5)",
+    itemHoverBg: "rgba(0, 0, 0, 0.5)",
   },
   {
     mode: "dark",
     name: "Dark",
     siderBg: "#1F1F1F",
-    headerBg: "#000000",
+    headerBg: "#1F1F1F",
     itemBg: "#1F1F1F",
-    subMenuItemBg: "rgb(0, 0, 0, 0.5)",
-    itemHoverBg: "rgb(0, 0, 0, 0.5)",
+    colorText: "#d9d9d9",
+    subMenuItemBg: "rgba(0, 0, 0, 0.5)",
+    itemHoverBg: "rgba(0, 0, 0, 0.5)",
   },
 ];
-
 export const primaryColors: { label: string; value: string }[] = [
   { label: "Turquoise", value: "#1abc9c" },
   { label: "Emerald", value: "#2ecc71" },
@@ -47,7 +48,7 @@ export const fontSizes: { label: string; value: number }[] = Array.from(
 
 export const fontFamilies: { label: string; value: string }[] = [
   {
-    label: "Roboto (Default)",
-    value: "Roboto, sans-serif",
+    label: "Inter (Default)",
+    value: "Inter, sans-serif",
   },
 ];

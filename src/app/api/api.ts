@@ -12,7 +12,7 @@ import { TagTypes } from "../utilities/tags";
 
 const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =
   fetchBaseQuery({
-    baseUrl: import.meta.env.DEV
+    baseUrl: import.meta.env.PROD
       ? import.meta.env.VITE_DEV_API
       : import.meta.env.VITE_PROD_API,
     credentials: "include",

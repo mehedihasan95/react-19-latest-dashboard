@@ -33,9 +33,7 @@ const notificationSlice = createSlice({
         placement: payload.placement || "bottomRight",
       };
     },
-    clearNotification: () => {
-      return { ...initialState };
-    },
+    clearNotification: () => initialState,
   },
 });
 

@@ -13,6 +13,7 @@ export type ThemeStateType = {
   siderBg: string;
   headerBg: string;
   itemBg: string;
+  colorText: string;
   subMenuItemBg: string;
   itemHoverBg: string;
 };

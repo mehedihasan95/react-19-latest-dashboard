@@ -1,6 +1,8 @@
 import { Alert, Space, Typography } from "antd";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import { AuthState, clearMessage } from "../../../app/slice/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/utilities/hooks";
 
 type AuthHeaderTypes = {
   path: string[];
@@ -32,6 +34,8 @@ const AUTH_HEADER: AuthHeaderTypes[] = [
 ];
 const HeadSection: React.FC = () => {
   const { pathname } = useLocation();
+  const { message } = useAppSelector(AuthState);
+  const dispatch = useAppDispatch();
 
   const { title, description } = useMemo(
     () =>
@@ -40,6 +44,14 @@ const HeadSection: React.FC = () => {
       ) as AuthHeaderTypes,
     [pathname]
   );
+
+  useEffect(() => {
+    if (!message) return;
+    const timer: number = setTimeout(() => {
+      dispatch(clearMessage());
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, [message, dispatch]);
 
   return (
     <section>
@@ -67,14 +79,17 @@ const HeadSection: React.FC = () => {
       </Space>
       <br />
       <br />
-      <Alert
-        style={{
-          textAlign: "center",
-          display: "block",
-        }}
-        message="Please use the following credentials to login."
-        type="warning"
-      />
+      {message && (
+        <Alert
+          style={{
+            textAlign: "center",
+            display: "block",
+            color: "red",
+          }}
+          message={message}
+          type="error"
+        />
+      )}
       <br />
       <br />
     </section>

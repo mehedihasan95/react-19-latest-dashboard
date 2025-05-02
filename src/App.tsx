@@ -3,12 +3,12 @@ import React from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { ThemeState } from "./app/slice/themeSlice";
-import { useAppSelector } from "./app/store";
 import DrawerConfig from "./configuration/DrawerConfig";
 import ModalConfig from "./configuration/ModalConfig";
 import NotificationConfig from "./configuration/NotificationConfig";
 import useBreakPoint from "./hooks/useBreakPoint";
 import router from "./router/route";
+import { useAppSelector } from "./app/utilities/hooks";
 
 const App: React.FC = () => {
   const {
@@ -19,6 +19,7 @@ const App: React.FC = () => {
     siderBg,
     itemBg,
     headerBg,
+    colorText,
     subMenuItemBg,
     itemHoverBg,
   } = useAppSelector(ThemeState);
@@ -56,6 +57,13 @@ const App: React.FC = () => {
             itemBg,
             subMenuItemBg,
             itemHoverBg,
+            colorText,
+            popupBg: siderBg,
+            algorithm: true,
+          },
+          Segmented: {
+            itemSelectedBg: colorPrimary,
+            itemSelectedColor: colorText,
             algorithm: true,
           },
         },

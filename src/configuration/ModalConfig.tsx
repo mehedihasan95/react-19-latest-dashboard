@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Typography } from "antd";
-import { useAppDispatch, useAppSelector } from "../app/store";
 import { closeModal, ModalState } from "../app/slice/modalSlice";
+import { useAppDispatch, useAppSelector } from "../app/utilities/hooks";
 
 const ModalConfig: React.FC = () => {
   const { open, title, content, width } = useAppSelector(ModalState);

@@ -8,8 +8,8 @@ import AuthHeader from "../components/AuthHeader";
 import { Outlet } from "react-router-dom";
 import HeadSection from "../components/HeadSection";
 import Typewriter from "../../../ui/Typewriter/Typewriter";
-import { useAppSelector } from "../../../app/store";
 import { ThemeState } from "../../../app/slice/themeSlice";
+import { useAppSelector } from "../../../app/utilities/hooks";
 
 const Auth: React.FC = () => {
   const { desktop } = useBreakPoint();

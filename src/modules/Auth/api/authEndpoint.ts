@@ -10,7 +10,7 @@ const authEndpoint = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<ApiResponse<ApiResult>, LoginTypes>({
       query: (data): FetchArgs => ({
-        url: "/auth/admin/login",
+        url: "/auth/member/login",
         method: "POST",
         body: data,
       }),
